@@ -135,6 +135,13 @@ if (length($optionMessage) > $message_limit)
    die ("$usage\n");   
 }
 
+#Escape any newlines in the message.
+#FIXME -- should fix more than just newlines; see here:
+#   http://stackoverflow.com/questions/42068/how-do-i-handle-newlines-in-json
+#The best way to do this is almost certainly to use a real JSON module of some
+#sort rather than trying to roll one's own.
+$optionMessage =~ s{\n}{\\n}g;
+
 #Check that the message type is valid.
 if ($optionType eq "") 
 {
